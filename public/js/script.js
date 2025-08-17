@@ -53,3 +53,8 @@ images.forEach(({ src, alt }) => {
 // Duplicate images for seamless scroll
 carousel.innerHTML += carousel.innerHTML;
 
+window.addEventListener('scroll', () => {
+  const offset = window.pageYOffset;
+  document.body.style.backgroundPositionY = `${offset * 0.5}px`;
+});
+
