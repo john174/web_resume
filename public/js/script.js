@@ -42,12 +42,14 @@ const images = [
 ];
 
 const carousel = document.getElementById('carousel');
-const angle = 360 / images.length;
 
-images.forEach((data, i) => {
+images.forEach(({ src, alt }) => {
   const img = document.createElement('img');
-  img.src = data.src;
-  img.alt = data.alt;
-  img.style.transform = `rotateY(${i * angle}deg) translateZ(300px)`;
+  img.src = src;
+  img.alt = alt;
   carousel.appendChild(img);
 });
+
+// Duplicate images for seamless scroll
+carousel.innerHTML += carousel.innerHTML;
+
