@@ -81,3 +81,8 @@ header .contact span {
   color: #004d40;
   font-weight: 500;
 }
+
+.skill-category {
+  font-weight: 500;
+  margin-top: 1rem;
+}
