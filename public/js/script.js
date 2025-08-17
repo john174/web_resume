@@ -24,15 +24,15 @@ const images = [
     alt: 'dbt'
   },
   {
-    src: 'https://redash.io/assets/images/redash-logo.svg',
+    src: 'https://redash.io/assets/images/elements/redash-logo.svg',
     alt: 'Redash'
   },
   {
-    src: 'https://grafana.com/static/img/grafana_logo.svg',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Grafana_logo.svg/1024px-Grafana_logo.svg.png?20230113183101',
     alt: 'Grafana'
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/7/7f/Microsoft_Office_Excel_%282013%E2%80%932019%29.svg',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg/640px-Microsoft_Office_Excel_%282019%E2%80%93present%29.svg.png',
     alt: 'Excel'
   },
   {

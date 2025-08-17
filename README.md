@@ -4,7 +4,8 @@ Static resume site for Evgeniy Kalinin.
 
 ## Deployment
 
-This site is configured for Netlify. The published files live in the `public` directory and no build step is required.
+This site is configured for Netlify. The published files live in the `public` directory and no build step is required.  
+Stylesheets and scripts are organized under `public/css` and `public/js` for clarity.
 
 1. Connect the repository to Netlify.
 2. Set the **Publish directory** to `public`.
