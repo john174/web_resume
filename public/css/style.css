@@ -1,13 +1,21 @@
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #fafafa;
+  background-image: url('https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1200&q=80');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 0;
+  background-attachment: fixed;
   color: #212121;
   line-height: 1.6;
+  transition: filter 0.2s;
 }
 
 header {
-  padding: 2rem 0;
+  padding: 2rem;
   text-align: center;
+  margin-top: 2rem;
+  border-radius: 10px;
 }
 
 header .contact a {
@@ -74,4 +82,9 @@ header .contact span {
   background-color: #e0f2f1;
   color: #004d40;
   font-weight: 500;
+}
+
+.skill-category {
+  font-weight: 500;
+  margin-top: 1rem;
 }

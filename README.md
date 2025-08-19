@@ -13,3 +13,14 @@ Stylesheets and scripts are organized under `public/css` and `public/js` for cla
 4. There is no build command.
 
 After deployment, the resume will be available at the site URL.
+
+## Streamlit Version
+
+The repository also includes `streamlit_app.py` which renders the resume using [Streamlit](https://streamlit.io/).
+
+### Local development
+
+```bash
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
