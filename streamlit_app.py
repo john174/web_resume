@@ -27,7 +27,7 @@ full_html = f"""
 <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css\" />
 <style>{css}</style>
 </head>
-<body class=\"grey lighten-4\">
+<body>
 {body_html}
 <script src=\"https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js\"></script>
 <script>{js}</script>
@@ -36,4 +36,5 @@ full_html = f"""
 """
 
 # Render the HTML inside the Streamlit app
-st.components.v1.html(full_html, height=2500, scrolling=True)
+height = len(body_html.splitlines()) * 18
+st.components.v1.html(full_html, height=height, scrolling=False)
