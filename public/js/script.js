@@ -53,32 +53,3 @@ images.forEach(({ src, alt }) => {
 // Duplicate images for seamless scroll
 carousel.innerHTML += carousel.innerHTML;
 
-window.addEventListener('scroll', () => {
-  handleScroll();
-});
-
-try {
-  if (window.parent && window.parent !== window) {
-    window.parent.addEventListener('scroll', handleScroll);
-  }
-} catch (e) {
-  // Cross-origin protections may block access to parent; ignore in that case
-}
-
-function handleScroll() {
-  let offset = 0;
-  try {
-    offset = window.parent && window.parent !== window ? window.parent.pageYOffset : window.pageYOffset;
-  } catch (e) {
-    offset = window.pageYOffset;
-  }
-  document.body.style.backgroundPositionY = `${offset * 0.5}px`;
-  const scrollHeight = document.body.scrollHeight - window.innerHeight;
-  const progress = scrollHeight > 0 ? offset / scrollHeight : 0;
-  const brightness = 1 - progress * 0.3;
-  document.body.style.filter = `brightness(${brightness})`;
-}
-
-// Initialize background position
-handleScroll();
-
