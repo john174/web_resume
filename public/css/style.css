@@ -6,8 +6,10 @@ body {
 }
 
 header {
-  padding: 2rem 0;
+  padding: 2rem;
   text-align: center;
+  margin-top: 2rem;
+  border-radius: 10px;
 }
 
 header .contact a {
@@ -74,4 +76,9 @@ header .contact span {
   background-color: #e0f2f1;
   color: #004d40;
   font-weight: 500;
+}
+
+.skill-category {
+  font-weight: 500;
+  margin-top: 1rem;
 }
