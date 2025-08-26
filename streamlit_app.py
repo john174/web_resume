@@ -4,16 +4,16 @@ import streamlit as st
 
 st.set_page_config(page_title="Evgeniy Kalinin - Data Analyst", layout="centered")
 
-# Подгружаем статику
+# Статика
 css = Path("public/css/style.css").read_text()
 js = Path("public/js/script.js").read_text()
 index_html = Path("public/index.html").read_text()
 
-# Достаём контент из <body> исходного HTML
+# Контент из <body>
 match = re.search(r"<body[^>]*>(.*)</body>", index_html, re.DOTALL)
 body_html = match.group(1) if match else index_html
 
-# Финальный HTML, который встраиваем в iframe
+# HTML, который встраиваем
 full_html = f"""
 <!DOCTYPE html>
 <html lang="en">
@@ -28,11 +28,11 @@ full_html = f"""
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
 
 <style>
-  /* Убираем внутренние отступы и любые внутренние скроллы в iframe */
+  /* Без внутренних прокруток и отступов у iframe-контента */
   html, body {{
     margin: 0;
     padding: 0;
-    overflow: visible;  /* важно: не даём iframe создавать свой скролл */
+    overflow: hidden; /* важно: исключаем внутренний скролл */
   }}
   {css}
 </style>
@@ -43,34 +43,47 @@ full_html = f"""
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>{js}</script>
 
-<!-- Автоподгон высоты iframe под контент -->
 <script>
+/* Автовысота без «раздувания» */
 (function () {{
-  function resize() {{
-    try {{
-      var h = Math.max(
-        document.body.scrollHeight, document.documentElement.scrollHeight,
-        document.body.offsetHeight,  document.documentElement.offsetHeight
-      ) + 20; // небольшой запас
-      if (window.frameElement) {{
-        window.frameElement.style.height = h + "px";
-        window.frameElement.style.overflow = "hidden";
-      }}
-    }} catch (e) {{}}
+  var lastH = -1;
+  function setHeight(h) {{
+    if (!window.frameElement) return;
+    var cur = parseInt(window.frameElement.style.height || "0", 10);
+    // Меняем высоту только если есть реальная разница (>1px)
+    if (Math.abs(cur - h) > 1 && Math.abs(lastH - h) > 1) {{
+      window.frameElement.style.height = h + "px";
+      lastH = h;
+    }}
   }}
 
-  // Обновляем высоту на загрузке и при любых изменениях верстки
-  window.addEventListener("load", resize);
-  new ResizeObserver(resize).observe(document.body);
-  // Подстраховка на случай динамических шрифтов и др.
-  setInterval(resize, 800);
+  function measure() {{
+    // Берём высоту документа; без буферов и магии
+    var h = Math.max(
+      document.documentElement.scrollHeight,
+      document.body ? document.body.scrollHeight : 0
+    );
+    setHeight(h);
+  }}
+
+  // Наблюдаем изменения размеров — без setInterval
+  var ro = new ResizeObserver(function() {{ measure(); }});
+  ro.observe(document.documentElement);
+  if (document.body) ro.observe(document.body);
+
+  // На загрузке — один замер
+  window.addEventListener("load", measure);
+
+  // На случай шрифтов/картинок — пару отложенных замеров
+  setTimeout(measure, 100);
+  setTimeout(measure, 600);
 }})();
 </script>
 </body>
 </html>
 """
 
-# Убираем внешние паддинги контейнера Streamlit
+# Снимаем паддинги контейнера Streamlit
 st.markdown(
     """
     <style>
@@ -80,6 +93,5 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Встраиваем HTML: временная маленькая высота, без внутренней прокрутки
-# JS внутри iframe сам выставит нужную высоту и уберёт двойной скролл.
+# Встраиваем: внутренний скролл запрещён, стартовая высота маленькая — дальше автоподгон
 st.components.v1.html(full_html, height=200, scrolling=False)
